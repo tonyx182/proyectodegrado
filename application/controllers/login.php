@@ -25,7 +25,7 @@ class Login extends CI_Controller {
 	public function validarlogin()
 	{
 		$userName=$_POST['userName'];
-		$password=$_POST['password'];
+		$password=md5($_POST['password']);
 
 		$consulta=$this->users_model->validar($userName, $password);
 
@@ -45,11 +45,6 @@ class Login extends CI_Controller {
 			//sino redirigimos a index enviando 1 en el urisegment 3
 			redirect('login/index/1','refresh');
 		}
-	}
-
-	public function menuAdmin()
-	{				
-		$this->load->view('menu_admin.php');				
 	}		
 
 	public function panel()
@@ -62,11 +57,11 @@ class Login extends CI_Controller {
 			}
 			else if($this->session->userdata('idRol')=='2')
 			{
-				redirect('pasajero/indexMenu','refresh');
+				redirect('usuario/menuCliente','refresh');
 			}	
 			else
 			{
-				redirect('conductor/indexMenu','refresh');
+				redirect('usuario/menuTaxista','refresh');
 			}		
 		}
 		else
@@ -80,16 +75,7 @@ class Login extends CI_Controller {
 	{
 		$this->session->sess_destroy();
 		redirect('login/index/3','refresh');
-	}	
-
-	public function listaAdmin()
-	{
-		$lista=$this->users_model->listaAdmin();
-		$data['usuario']=$lista;
-				
-		$this->load->view('menu_admin_admin',$data);	//contenido
-		
-	}
+	}		
 
 	public function agregar()
 	{

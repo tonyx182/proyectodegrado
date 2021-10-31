@@ -53,6 +53,11 @@ class users_model extends CI_Model {
 		return $this->db->get();
 	}
 
+	public function agregarUsuario($data)
+	{				
+		$this->db->insert('usuario',$data);
+	}
+
 	public function recuperarUsuarioAdmin($idUsuario)
 	{
 		$this->db->select('*');
@@ -68,19 +73,16 @@ class users_model extends CI_Model {
 		$this->db->from('usuario');
 		$this->db->where('idUsuario',$idUsuario);
 		$this->db->where('idRol',"2");
-		return $this->db->get();
+		$query = $this->db->get();
+
+		return $query->result();
 	}	
 
 	public function modificarUsuario($idUsuario,$data)
 	{
 		$this->db->where('idUsuario',$idUsuario);		
 		$this->db->update('usuario',$data);
-	}		
-
-	public function agregarUsuario($data)
-	{				
-		$this->db->insert('usuario',$data);
-	}
+	}	
 
 	public function eliminarUsuario($idUsuario)
 	{

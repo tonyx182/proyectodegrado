@@ -52,7 +52,7 @@ default:
                             <input type="submit" value="Ingresar">
                         </div>
                     </div>                    
-                    <div class="login-text">¿No tienes una cuenta? <label for="" ><a href="<?php echo site_url('pasajero/agregar');?>">Registrate Ahora</a></label></div>
+                    <div class="login-text">¿No tienes una cuenta? <label for="" ><a href="<?php echo site_url('usuario/agregarCliente');?>">Registrate Ahora</a></label></div>
                 </div>                
             </div>
         </form>

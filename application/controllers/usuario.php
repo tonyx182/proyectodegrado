@@ -1,14 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Usuario extends CI_Controller {
-
-	public function agregar()
-	{
-		
-		$this->load->view('pas_agregar.php');	//contenido
-		
-	}	
+class Usuario extends CI_Controller {	
 	
 	public function listaAdmin()
 	{
@@ -37,9 +30,51 @@ class Usuario extends CI_Controller {
 		
 	}	
 
-	public function indexMenu()
+	public function agregarCliente()
+	{
+		
+		$this->load->view('cli_agregar.php');	//contenido
+		
+	}	
+
+	public function agregarUsuariobd()
 	{		
-		$this->load->view('menu_user');	//contenido		
+		$nombres = $_POST['nombres'];
+		$primerApellido = $_POST['primerApellido'];
+		$segundoApellido = $_POST['segundoApellido'];
+		$celular = $_POST['celular'];
+		$password = substr(str_shuffle(str_repeat("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 15)), 0, 15);
+		$userName = substr($nombres, 0, 1).substr($primerApellido, 0, 1).substr($segundoApellido, 0, 1).substr($celular, 0, 4);
+		$data['userName']=$userName;
+		$data['password']=md5($password); 
+		$data['nombres']=$nombres;
+		$data['primerApellido']=$primerApellido;
+		$data['segundoApellido']=$segundoApellido;
+		$data['ci']=$_POST['ci'];
+		$data['sexo']=$_POST['sexo'];
+		$data['fechaNacimiento']=$_POST['fechaNacimiento'];
+		$data['celular']=$celular;
+		$data['direccion']=$_POST['direccion'];	
+		$data['idRol']="2";
+
+		$this->users_model->agregarUsuario($data);		
+
+		redirect('login/index','refresh');
+	}
+
+	public function menuAdmin()
+	{				
+		$this->load->view('menu_admin.php');				
+	}	
+
+	public function menuCliente()
+	{		
+		$this->load->view('menu_cliente');	//contenido		
+	}	
+
+	public function menuTaxista()
+	{		
+		$this->load->view('menu_taxista');	//contenido		
 	}	
 
 	public function modificar()
