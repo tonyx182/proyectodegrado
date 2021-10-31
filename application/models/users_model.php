@@ -18,7 +18,7 @@ class users_model extends CI_Model {
 		return $query->result();
 	}	
 
-	public function recuperarPasajero($idUsuario)
+	public function recuperarUsuario($idUsuario)
 	{
 		$this->db->select('*');
 		$this->db->from('usuario');
@@ -26,27 +26,26 @@ class users_model extends CI_Model {
 		return $this->db->get();
 	}	
 
-	public function modificarPasajero($idUsuario,$data)
+	public function modificarUsuario($idUsuario,$data)
 	{
-		$this->db->where('idUsuario',$idUsuario);
-		$this->db->join('login', 'login.idLogin = usuario.idUsuario');
+		$this->db->where('idUsuario',$idUsuario);		
 		$this->db->update('usuario',$data);
 	}		
 
-	public function agregarPasajero($data)
+	public function agregarUsuario($data)
 	{				
 		$this->db->insert('usuario',$data);
 	}
 
-	public function eliminarPasajero($idUsuario)
+	public function eliminarUsuario($idUsuario)
 	{
 		$this->db->where('idUsuario',$idUsuario);
 		$this->db->delete('usuario');
 	}
 	
-	public function inhabilitarPasajero($idUsuario,$data)
+	public function inhabilitarUsuario($idUsuario,$data)
 	{
-		$this->db->where('idLogin',$idUsuario);
-		$this->db->update('login',$data);
+		$this->db->where('idUsuario',$idUsuario);
+		$this->db->update('usuario',$data);
 	}	
 }
