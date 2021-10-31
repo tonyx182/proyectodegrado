@@ -25,18 +25,18 @@ class Login extends CI_Controller {
 	public function validarlogin()
 	{
 		$userName=$_POST['userName'];
-		$password=md5($_POST['password']);
+		$password=$_POST['password'];
 
-		$consulta=$this->login_model->validar($userName, $password);
+		$consulta=$this->users_model->validar($userName, $password);
 
 		if($consulta->num_rows()>0)
 		{
 			foreach ($consulta->result() as $row)
 			{
 				//crear las variables de sesion
-				$this->session->set_userdata('idLogin',$row->idLogin);
+				$this->session->set_userdata('idUsuario',$row->idUsuario);
 				$this->session->set_userdata('userName',$row->userName);
-				$this->session->set_userdata('rol',$row->rol);
+				$this->session->set_userdata('idRol',$row->idRol);
 				redirect('login/panel','refresh');
 			}
 		}
@@ -54,13 +54,13 @@ class Login extends CI_Controller {
 
 	public function panel()
 	{
-		if($this->session->userdata('email'))
+		if($this->session->userdata('userName'))
 		{			
-			if($this->session->userdata('rol')=='admin')
+			if($this->session->userdata('idRol')=='1')
 			{
 				redirect('login/menuAdmin','refresh');
 			}
-			else if($this->session->userdata('rol')=='usuario')
+			else if($this->session->userdata('idRol')=='2')
 			{
 				redirect('pasajero/indexMenu','refresh');
 			}	
@@ -84,8 +84,8 @@ class Login extends CI_Controller {
 
 	public function listaAdmin()
 	{
-		$lista=$this->login_model->lista();
-		$data['login']=$lista;
+		$lista=$this->users_model->listaAdmin();
+		$data['usuario']=$lista;
 				
 		$this->load->view('menu_admin_admin',$data);	//contenido
 		

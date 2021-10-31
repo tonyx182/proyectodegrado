@@ -18,9 +18,7 @@ class users_model extends CI_Model {
 		$this->db->where('userName',$userName);
 		$this->db->where('password',$password);
 		$this->db->where('estado',"1");
-		$query = $this->db->get();
-
-		return $query->result();
+		return $this->db->get();
 
 		//$query="SELECT * FROM usuarios WHERE login='".$login."' AND password='".$password."'";
 		//return $this->db->query($query);
@@ -34,11 +32,42 @@ class users_model extends CI_Model {
 		return $query->result();
 	}	
 
-	public function recuperarUsuario($idUsuario)
+	public function listaAdmin() {
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where('idRol',"1");
+		return $this->db->get();
+	}
+
+	public function listaClientes()	{
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where('idRol',"2");
+		return $this->db->get();
+	}
+
+	public function listaTaxistas()	{
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where('idRol',"3");
+		return $this->db->get();
+	}
+
+	public function recuperarUsuarioAdmin($idUsuario)
 	{
 		$this->db->select('*');
 		$this->db->from('usuario');
 		$this->db->where('idUsuario',$idUsuario);
+		$this->db->where('idRol',"1");
+		return $this->db->get();
+	}	
+
+	public function recuperarUsuarioCliente($idUsuario)
+	{
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where('idUsuario',$idUsuario);
+		$this->db->where('idRol',"2");
 		return $this->db->get();
 	}	
 
