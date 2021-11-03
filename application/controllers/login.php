@@ -53,7 +53,7 @@ class Login extends CI_Controller {
 		{			
 			if($this->session->userdata('idRol')=='1')
 			{
-				redirect('login/menuAdmin','refresh');
+				redirect('usuario/menuAdmin','refresh');
 			}
 			else if($this->session->userdata('idRol')=='2')
 			{
@@ -76,12 +76,4 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect('login/index/3','refresh');
 	}		
-
-	public function agregar()
-	{
-		$this->load->view('inc_head.php');		//archivos de cabecera
-		$this->load->view('us_agregar.php');	//contenido
-		$this->load->view('inc_footer.php');	//archivos del footer
-	}		
-	
 }

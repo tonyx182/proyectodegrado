@@ -2,13 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
-
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
 <html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8">
-        
+        <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
         <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/stylemenu.css">  
-        
+        <!-- Boxiocns CDN Link -->
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <link rel="stylesheet" href="<?php echo base_url(); ?>bootstrap/css/bootstrap.css">  
         
@@ -24,12 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <ul class="nav-links">
         <li>
-            <a href="<?php echo site_url('usuario/menuAdmin');?>">
+            <a href="<?php echo site_url('login/menuAdmin');?>">
             <i class='bx bx-grid-alt' ></i>
             <span class="link_name">Inicio</span>
             </a>
             <ul class="sub-menu blank">
-            <li><a class="link_name" href="<?php echo site_url('usuario/menuAdmin');?>">Inicio</a></li>
+            <li><a class="link_name" href="<?php echo site_url('login/menuAdmin');?>">Inicio</a></li>
             </ul>
         </li>        
         <li>
@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="<?php echo site_url('usuario/listaAdmin');?>">Administradores</a></li>                 
             <li><a href="<?php echo site_url('usuario/listaClientes');?>">Clientes</a></li> 
             <li><a href="<?php echo site_url('usuario/listaTaxistas');?>">Taxistas</a></li>       
-            <li><a href="<?php echo site_url('vehiculo/menuVehiculo');?>">Vehiculos</a></li> 
+            <li><a href="<?php echo site_url('vehiculo/menuVehiculo');?>">Vehiculos</a></li>         
             </ul>
         </li>
         <li>
@@ -95,33 +95,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="container">
             <div class="row">			
                 <div class="col-md-12">
-
-
-                <?php
-                    echo form_open_multipart('usuario/agregarAdmin');
-                ?>
-                    <button type="submit" class="btn btn-dark btn-xs">Agregar Administrador</button>
-                <?php
-                    echo form_close();
-                ?>			
+                
                 
                 <table class="table">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre de Usuario</th> 
                         <th scope="col">Nombres</th>
-                        <th scope="col">Primer Apellido</th>
-                        <th scope="col">Segundo Apellido</th> 
-                        <th scope="col">CI</th>
-                        <th scope="col">Sexo</th>
-                        <th scope="col">Fecha de Nacimiento</th> 
-                        <th scope="col">Celular</th>
-                        <th scope="col">Direccion</th> 
-                        <th scope="col">Estado</th>
-                        <th scope="col">Fecha de Registro</th>
-                        <th scope="col">Modificar</th>
-                        <th scope="col">Eliminar</th>
+                        <th scope="col">Primer Apellido</th>                        
+                        <th scope="col">Placa</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Año Modelo</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Número de Chasis</th>
+                        <th scope="col">Número de Motor</th>
+                        <th scope="col">Cilindrada del Motor</th>
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -129,41 +119,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     
                         <?php
                         $indice=1;
-                        foreach ($usuario->result() as $row) {						
+                        foreach ($vehiculo->result() as $row) {						
                         ?>
                             <tr>
                                 <th scope="row"><?php echo $indice; ?></th>
-                                <td><?php echo $row->userName; ?></td>
                                 <td><?php echo $row->nombres; ?></td>
-                                <td><?php echo $row->primerApellido; ?></td>                                  
-                                <td><?php echo $row->segundoApellido; ?></td>
-                                <td><?php echo $row->ci; ?></td>  
-                                <td><?php echo $row->sexo; ?></td> 
-                                <td><?php echo $row->fechaNacimiento; ?></td> 
-                                <td><?php echo $row->celular; ?></td> 
-                                <td><?php echo $row->direccion; ?></td>                                
-                                <td><?php echo estado($row->estado); ?></td>
-                                <td><?php echo $row->fechaRegistro; ?></td>
+                                <td><?php echo $row->primerApellido; ?></td>                                
+                                <td><?php echo $row->placa; ?></td>
+                                <td><?php echo $row->marca; ?></td>
+                                <td><?php echo $row->modelo; ?></td>
+                                <td><?php echo $row->anioModelo; ?></td>
+                                <td><?php echo $row->color; ?></td>
+                                <td><?php echo $row->nroChasis; ?></td>
+                                <td><?php echo $row->nroMotor; ?></td>
+                                <td><?php echo $row->cilindradaMotor; ?></td>                                                              
                                 <td>			
                                     <?php
-                                        echo form_open_multipart('login/modificar');
+                                        echo form_open_multipart('vehiculo/modificar');
                                     ?>
-                                    <input type="hidden" name="idLogin" value="<?php echo $row->idLogin; ?>">
+                                    <input type="hidden" name="idVehiculo" value="<?php echo $row->idVehiculo; ?>">
                                     <button type="submit" class="btn btn-warning btn-xs">Modificar</button>									
                                     <?php
                                         echo form_close();
                                     ?>
-                                </td>		
-                                <td>        
-                                    <?php 
-                                        echo form_open_multipart('login/inhabilitarbd');
-                                    ?>                            
-                                        <input type="hidden" name="idLogin" value="<?php echo $row->idLogin; ?>">
-                                        <button type="submit" class="btn btn-danger btn-xs" onclick="inhabilitarUser()">Dar de Baja</button>									
-                                    <?php 
-                                        echo form_close();
-                                    ?>
-                                </td>
+                                </td>		                                
                             </tr>
                         <?php
 
@@ -180,8 +159,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
 
-    </section>       
+    </section>    
     <script src="<?php echo base_url(); ?>bootstrap/js/scriptmenu.js"></script>   
-    <script src="<?php echo base_url(); ?>bootstrap/js/eliminarReg.js"></script> 
+    <script src="<?php echo base_url(); ?>bootstrap/js/eliminarReg.js"></script>
 </body>
 </html>

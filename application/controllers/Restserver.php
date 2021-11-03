@@ -39,4 +39,38 @@ class Restserver extends REST_Controller {
 		$idUsuario=$this->db->insert_id();
 		$this->response($this->users_model->recuperarUsuarioCliente("5"));
 	}
+
+	public function login_post() {
+		//get the post data
+		$userName = $this->post('userName');
+		$password = $this->post('password');
+
+		//validate the post data
+		if(!empty($userName) && !empty($password)) {
+			//check if any user exists whit the given credentials
+			$con['returnType'] = 'single';
+			$con['conditions'] = array(
+				'userName' => $userName,
+				'password' => md5($password),
+				'estado' => 1
+			);
+			$user = $this->users_model->getRows($con);
+
+			if($user) {
+				//set the response and exit
+				$this->response([
+					'status' => TRUE,
+					'message' => 'Inicio de Sesión Existosa.',
+					'data' => $user
+				], REST_Controller::HTTP_OK);
+			}else {
+				//set the response and exit
+				//BAD_REQUEST (400) being the HTTP response code
+				$this->response("Nombre de Usuario o Contaseña Incorrectos", REST_Controller::HTTP_BAD_REQUEST);
+			}
+		}else {
+			//set the response and exit
+			$this->response("Introduzca un nombre de usuario y contraseña", REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
 }

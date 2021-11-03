@@ -24,12 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <ul class="nav-links">
         <li>
-            <a href="<?php echo site_url('login/menuAdmin');?>">
+            <a href="<?php echo site_url('usuario/menuAdmin');?>">
             <i class='bx bx-grid-alt' ></i>
             <span class="link_name">Inicio</span>
             </a>
             <ul class="sub-menu blank">
-            <li><a class="link_name" href="<?php echo site_url('login/menuAdmin');?>">Inicio</a></li>
+            <li><a class="link_name" href="<?php echo site_url('usuario/menuAdmin');?>">Inicio</a></li>
             </ul>
         </li>        
         <li>
@@ -45,7 +45,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="<?php echo site_url('usuario/listaAdmin');?>">Administradores</a></li>                 
             <li><a href="<?php echo site_url('usuario/listaClientes');?>">Clientes</a></li> 
             <li><a href="<?php echo site_url('usuario/listaTaxistas');?>">Taxistas</a></li>       
-            <li><a href="<?php echo site_url('vehiculo/index');?>">Vehiculos</a></li>           
+            <li><a href="<?php echo site_url('vehiculo/menuVehiculo');?>">Vehiculos</a></li>           
             </ul>
         </li>
         <li>
@@ -134,7 +134,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                         <td><?php echo $row->celular; ?></td>
                                         <td><?php echo $row->direccion; ?></td> 
                                         <td><?php echo estado($row->estado); ?></td>
-                                        <td><?php echo $row->fechaDeRegistro; ?></td>
+                                        <td><?php echo $row->fechaRegistro; ?></td>
                                         <td>
                                         <?php
                                             echo form_open_multipart('pasajero/inhabilitarbd');
